@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Student</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/show">Show Students</a>
+    </nav>
+
+    <h1>Edit Student</h1>
+    <form th:action="@{/update}" th:object="${student}" method="post" enctype="multipart/form-data">
+        Roll: <input type="text" th:field="*{roll}" readonly /><br>
+        Name: <input type="text" th:field="*{name}" /><br>
+        Course: <input type="text" th:field="*{course}" /><br>
+        Fees: <input type="text" th:field="*{fees}" /><br>
+        <p th:if="${student.photo != null}">Current Photo: <img th:src="@{${student.photo}}" height="100" /></p>
+        Upload New Photo: <input type="file" name="photo" /><br>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Records</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/show">Show Students</a> |
+        <a href="/contact">Contact Us</a> |
+        <a href="/admin">Admin</a>
+    </nav>
+
+    <h1>Student Records</h1>
+
+	<div align="center">
+	    <form method="get" th:action="@{/search}">
+	        Enter Name:<br> 
+	        <input type="text" name="gname" required />
+	        <br>
+	        <input type="submit" value="🔍Search" />
+	    </form>
+	</div>
+
+
+    <!-- Student Table with Update and Delete Options -->
+	<table border="10">
+	    <tr>
+	        <td>ROLL NUMBER</td>
+	        <td>NAME</td>
+	        <td>COURSE</td>
+	        <td>FEES</td>
+	        <td>PHOTO</td> <!-- Add column for Photo -->
+	        <td>ACTIONS</td>
+	    </tr>
+	    <tr th:each="r:${records}">
+	        <td th:text="${r.roll}"></td>
+	        <td th:text="${r.name}"></td>
+	        <td th:text="${r.course}"></td>
+	        <td th:text="${r.fees}"></td>
+			<td>
+				    <img th:if="${r.photo != null}"  th:src="@{/uploads/{photo}(photo=${r.photo})}" alt="Student Photo" style="width: 50px; height: 50px;" />
+				    <img th:if="${r.photo == null}" src="/uploads/default.png" alt="Default Photo" style="width: 50px; height: 50px;" />
+			</td>
+	        <td>
+	            <a th:href="@{/edit/{id}(id=${r.roll})}">Edit</a> |
+	            <a th:href="@{/delete/{id}(id=${r.roll})}" onclick="return confirm('Are you sure?')">Delete</a>
+	        </td>
+	    </tr>
+	</table>
+
+
+    <hr/>
+</body>
+</html>
